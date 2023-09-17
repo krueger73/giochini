@@ -1,13 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define DIM 20
+#define DIM 8
 
 #define PRINT_PROGRESS 1
-#define PRINT_TAB 0
-#define PRINT_SOL 0
+#define PRINT_TAB 1
+#define PRINT_SOL 1
 
-/* restituisce 0 se (row, col) non è minacciata */
+/* restituisce 0 se (row, col) non e' minacciata */
 int minaccia(int row, int col, int pos[]);
 
 /* piazza regine da riga rowstart in avanti */
@@ -42,7 +42,7 @@ int minaccia(int row, int col, int pos[]) {
     locRet = 0;
   }
   else {
-    /* check in verticale in alto già fatto fuori */    
+    /* check in verticale in alto giÃ  fatto fuori */    
     /* check in diagonale in alto a destra e sinistra fino a row == 0 */
     locRet = 0;
     i = 1;
@@ -52,7 +52,7 @@ int minaccia(int row, int col, int pos[]) {
       /* check in riga row-i,  col+i e col-i */
       c1 = col + i;
       c2 = col - i;
-      /* controllo se la regina in row-1 è in posizione c1 o c2 */
+      /* controllo se la regina in row-1 e' in posizione c1 o c2 */
       /* non ho bisogno di controllare i limiti di c1 e c2 (>=0 e <DIM) */
       if ((pos[row - i] == c1) || (pos[row - i] == c2)) {
         /* trovata, abbandona */
@@ -61,7 +61,7 @@ int minaccia(int row, int col, int pos[]) {
       }
       i++;
     } /* while */
-    /* qui locRet è impostato correttamente */    
+    /* qui locRet e' impostato correttamente */    
   }
   return locRet;
 }
@@ -74,7 +74,7 @@ void piazza(int rowstart, int pos[]) {
   pos[rowstart] = 0;
   while (pos[rowstart] < DIM) {
     reg = pos[rowstart];
-    /* se la casella (rowstart, reg) non è minacciata  */
+    /* se la casella (rowstart, reg) non e' minacciata  */
     if ((occupa[reg] == 0) && (minaccia(rowstart, reg, pos) == 0)) {
       if ((rowstart + 1) == DIM) {
         /* sono nell'ultima riga e ho piazzato la regina in casella non minacciata 
@@ -109,10 +109,10 @@ void piazza(int rowstart, int pos[]) {
     * 64 -> 30, 31
     */
     if (PRINT_PROGRESS == 1) {
-      if (rowstart <= 3) {
+      if (rowstart <= 0) {
         printf("%ld", conta);
       }
-      if (rowstart <= 4) {
+      if (rowstart <= 1) {
         printf(".");
       }
     }
